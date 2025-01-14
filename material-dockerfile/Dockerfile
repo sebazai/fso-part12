@@ -2,6 +2,12 @@ FROM node:20
 
 WORKDIR /usr/src/app
 
-COPY . .
+COPY --chown=node:node . .
 
-CMD DEBUG=playground:* npm start
+RUN npm ci --omit=dev
+
+ENV DEBUG=material-dockerfile:* 
+
+USER node
+
+CMD npm start
