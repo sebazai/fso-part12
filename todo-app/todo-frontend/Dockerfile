@@ -1,4 +1,4 @@
-FROM node:20 AS build-stage
+FROM node:20 AS base-node
 
 WORKDIR /usr/src/app
 
@@ -12,4 +12,8 @@ RUN npm run build
 
 FROM nginx:1.25-alpine
 
-COPY --from=build-stage /usr/src/app/dist /usr/share/nginx/html
+COPY --from=base-node /usr/src/app/dist /usr/share/nginx/html
+
+FROM base-node AS test
+
+RUN npm run test
