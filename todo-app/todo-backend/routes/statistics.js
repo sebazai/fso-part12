@@ -7,6 +7,7 @@ router.get("/", async (req, res) => {
   const added_todos = await getAddedTodos();
   res.send({
     added_todos,
+    completed_todos: 0,
   });
 });
 
